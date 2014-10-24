@@ -32,4 +32,16 @@ public class Aresta {
                    v2.b.y + (v2.b.height/2));
     }
     
+    @Override
+    public boolean equals(Object obj){
+        if (obj instanceof Aresta){
+            Aresta a = (Aresta)obj;
+            if (a.v1 == this.v1 && 
+                a.v2 == this.v2)
+                return true;
+        }
+        return false;
+        
+    }
+    
 }

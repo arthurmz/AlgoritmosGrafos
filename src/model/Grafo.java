@@ -8,6 +8,7 @@ package model;
 import java.awt.Point;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
@@ -23,6 +24,7 @@ public class Grafo {
         listaVertices = new ArrayList<Vertice>();
     }
     
+    
     public void addVertice(){
         int idVertice = listaVertices.size();
         listaVertices.add(
@@ -33,15 +35,13 @@ public class Grafo {
     
     public void addAresta(Vertice v1, Vertice v2){
         Aresta a = new Aresta(v1, v2, null);
-        v1.addAresta(a);
-        v2.addAresta(a);
+        if (!existeAresta(a)){
+            v1.addAresta(a);
+            v2.addAresta(a);
+        }
     }
     
-    public List<Vertice> getVertices(){
-        return listaVertices;
-    }
-    
-    /**
+        /**
      * Adiciona várias arestas ao primeiro vértice
      * @param first
      * @param others 
@@ -50,6 +50,40 @@ public class Grafo {
         for (Vertice outro : others){
             addAresta(first, outro);
         }
+    }
+    
+    public List<Vertice> getVertices(){
+        return listaVertices;
+    }
+    
+    public List<Aresta> getArestas(){
+        List<Aresta> alist = new ArrayList<Aresta>();
+        for (Vertice v : listaVertices){
+            for (Aresta a : v.getArestas()){
+                alist.add(a);
+            }
+        }
+        return alist;
+    }
+    
+    private void removeVertice(Vertice v) {
+        List<Aresta> arestasAdjacentes = v.getArestas();
+        
+        for (Vertice verticeLocal : listaVertices){//para todos os vertices
+            if (verticeLocal == v) continue;//pula o próprio vertice
+            
+            Iterator it = verticeLocal.getArestas().iterator();
+            //Para cada aresta desse vertice
+            while(it.hasNext()){
+                Aresta arestaLocal = (Aresta)it.next();
+                //se for igual a uma das a restas para remover, remove!
+                for (Aresta arestaRemover : arestasAdjacentes){
+                    if (arestaRemover.equals(arestaLocal))
+                       it.remove();
+                }
+            }
+        }
+        listaVertices.remove(v);
     }
 
     /**
@@ -87,6 +121,18 @@ public class Grafo {
         }
         
         return verticesSelecionados;
+    }
+
+    private boolean existeAresta(Aresta a) {
+        List<Aresta> listaArestas = getArestas();
+        return listaArestas.contains(a);
+    }
+
+    public void removerVerticesSelecionados() {
+        Queue<Vertice> vertices = getVerticesSelecionados();
+        for (Vertice v : vertices){
+            removeVertice(v);
+        }
     }
     
 }
