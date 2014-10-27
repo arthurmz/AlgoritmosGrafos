@@ -126,7 +126,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JToolBar.Separator();
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        outputTextArea = new javax.swing.JTextArea();
         barraMenu = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -151,6 +151,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         );
 
         panelOutputGrafo.setBackground(new java.awt.Color(255, 255, 255));
+        panelOutputGrafo.setPreferredSize(new java.awt.Dimension(0, 183));
 
         javax.swing.GroupLayout panelOutputGrafoLayout = new javax.swing.GroupLayout(panelOutputGrafo);
         panelOutputGrafo.setLayout(panelOutputGrafoLayout);
@@ -160,7 +161,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         );
         panelOutputGrafoLayout.setVerticalGroup(
             panelOutputGrafoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
+            .addGap(0, 183, Short.MAX_VALUE)
         );
 
         jToolBar1.setRollover(true);
@@ -214,9 +215,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        outputTextArea.setBackground(new java.awt.Color(0, 0, 0));
+        outputTextArea.setColumns(20);
+        outputTextArea.setForeground(new java.awt.Color(255, 255, 255));
+        outputTextArea.setLineWrap(true);
+        outputTextArea.setRows(5);
+        jScrollPane1.setViewportView(outputTextArea);
 
         menuArquivo.setText("Arquivo");
 
@@ -256,15 +260,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                    .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(panelDesenharGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panelOutputGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(panelOutputGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -274,9 +276,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelDesenharGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelOutputGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                .addComponent(panelOutputGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -292,20 +294,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemMenuArvoreGeradoraMinimaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        grafo.addVertice();
+        String nomeVertice = grafo.addVertice();
         repaint();
+        outputTextArea.append("Vertice " + nomeVertice + " adicionado.\n");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Queue<Vertice> l = grafo.getVerticesSelecionados();
         
         Vertice first = l.poll();
-        
+        StringBuilder s = new StringBuilder();
+        s.append("Vertice(s) ");
         if (first != null){
+            s.append(first.nome);
             for (Vertice v : l){
                 grafo.addAresta(first, v);
+                s.append(", "+ v.nome);
             }
         }
+        s.append(" Conectados(s)\n");
+        this.outputTextArea.append(s.toString());
         this.panelDesenharGrafo.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -315,7 +323,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        grafo.removerVerticesSelecionados();
+        String vertices = grafo.removerVerticesSelecionados();
+        this.outputTextArea.append("Vertice(s) " + vertices + "Removido(s)\n");
         this.panelDesenharGrafo.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -334,10 +343,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar.Separator jSeparator3;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenu menuAlgoritmos;
     private javax.swing.JMenu menuArquivo;
+    private javax.swing.JTextArea outputTextArea;
     private javax.swing.JPanel panelDesenharGrafo;
     private javax.swing.JPanel panelOutputGrafo;
     // End of variables declaration//GEN-END:variables

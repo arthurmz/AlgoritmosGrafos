@@ -25,12 +25,14 @@ public class Grafo {
     }
     
     
-    public void addVertice(){
+    public String addVertice(){
         int idVertice = listaVertices.size();
+        String nomeVertice = "V"+Integer.toString(idVertice);
         listaVertices.add(
-            new Vertice("V"+Integer.toString(idVertice),
+            new Vertice(nomeVertice,
             100+idVertice, 
             100+idVertice, 20, 20));
+        return nomeVertice;
     }
     
     public void addAresta(Vertice v1, Vertice v2){
@@ -128,11 +130,14 @@ public class Grafo {
         return listaArestas.contains(a);
     }
 
-    public void removerVerticesSelecionados() {
+    public String removerVerticesSelecionados() {
+        StringBuilder s = new StringBuilder();
         Queue<Vertice> vertices = getVerticesSelecionados();
         for (Vertice v : vertices){
             removeVertice(v);
+            s.append(v.nome + ", ");
         }
+        return s.toString();
     }
     
 }
