@@ -15,6 +15,7 @@ import java.util.Queue;
 import javax.swing.UIManager;
 import model.Aresta;
 import model.Grafo;
+import model.ProcessadorGrafo;
 import model.Vertice;
 
 /**
@@ -27,6 +28,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private boolean dragging = false;
     private boolean selecionando = false;
     private Point pontoAnterior = null;
+    private ProcessadorGrafo processadorGrafo;
 
     /**
      * Creates new form JanelaPrincipal
@@ -38,6 +40,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void clear() {
         grafo = new Grafo();
+        processadorGrafo = new ProcessadorGrafo(grafo);
     }
     
     private class MouseHandler extends MouseAdapter {
@@ -116,7 +119,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 addMouseMotionListener(new MouseMotionHandler());
             }
         };
-        panelOutputGrafo = new javax.swing.JPanel();
+        panelOutputGrafo = new javax.swing.JPanel(){
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                processadorGrafo.desenharGrafoResultante(g);
+            }
+        };
         jToolBar1 = new javax.swing.JToolBar();
         jButton3 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
@@ -290,7 +299,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void itemMenuArvoreGeradoraMinimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuArvoreGeradoraMinimaActionPerformed
-        // TODO add your handling code here:
+        processadorGrafo.processarArvoreGeradoraMinima();
+        this.panelOutputGrafo.repaint();
     }//GEN-LAST:event_itemMenuArvoreGeradoraMinimaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
