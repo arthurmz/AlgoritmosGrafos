@@ -29,6 +29,11 @@ public class Vertice {
         arestas = new ArrayList<Aresta>();
     }
 
+    public Vertice(String nomeVertice) {
+        this.nome = nomeVertice;
+        arestas = new ArrayList<Aresta>();
+    }
+
     public void draw(Graphics g) {
         g.setColor(Color.white);
         g.fillArc(b.x, b.y, b.width, b.height, 0, 360);
@@ -67,5 +72,34 @@ public class Vertice {
     
     public List<Aresta> getArestas(){
         return arestas;
+    }
+    
+    public void addArestas(List<Aresta> a){
+        this.arestas.addAll(a);
+    }
+
+    boolean contemAresta(Aresta a) {
+        for (Aresta arestaInterna: arestas){
+            if (arestaInterna.v1.nome.equals(a.v1.nome)
+               || arestaInterna.v2.nome.equals(a.v2.nome))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Copia as arestas criando novas instancias
+     * @param arestasNovas 
+     */
+    void setArestas(List<Aresta> arestasNovas) {
+        for (Aresta a : arestasNovas){
+            Aresta nova = new Aresta();
+            
+            nova.v1 = new Vertice(a.v1.nome);
+            nova.v2 = new Vertice(a.v2.nome);
+            
+            arestas.add(a);
+        }
+            
     }
 }

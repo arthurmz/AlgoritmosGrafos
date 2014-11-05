@@ -4,11 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Arthur/Documents/NetBeansProjects/AlgoritmosGrafos/src/model/ProcessadorGrafo.java</file>
-            <file>file:/C:/Users/Arthur/Documents/NetBeansProjects/AlgoritmosGrafos/src/model/Aresta.java</file>
             <file>file:/C:/Users/Arthur/Documents/NetBeansProjects/AlgoritmosGrafos/src/model/ArvoreGeradoraMinimaKruskal.java</file>
             <file>file:/C:/Users/Arthur/Documents/NetBeansProjects/AlgoritmosGrafos/src/gui/Main.java</file>
             <file>file:/C:/Users/Arthur/Documents/NetBeansProjects/AlgoritmosGrafos/src/gui/JanelaPrincipal.java</file>
-            <file>file:/C:/Users/Arthur/Documents/NetBeansProjects/AlgoritmosGrafos/src/model/Vertice.java</file>
             <file>file:/C:/Users/Arthur/Documents/NetBeansProjects/AlgoritmosGrafos/src/model/Grafo.java</file>
         </group>
     </open-files>

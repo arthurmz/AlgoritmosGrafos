@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.List;
 import java.util.Queue;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import model.Aresta;
 import model.Grafo;
@@ -310,6 +311,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Integer peso = Integer.parseInt ((String)JOptionPane.showInputDialog(
+                    this,
+                    "Peso",
+                    JOptionPane.PLAIN_MESSAGE));
         Queue<Vertice> l = grafo.getVerticesSelecionados();
         
         Vertice first = l.poll();
@@ -318,7 +323,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         if (first != null){
             s.append(first.nome);
             for (Vertice v : l){
-                grafo.addAresta(first, v);
+                grafo.addAresta(first, v, peso);
                 s.append(", "+ v.nome);
             }
         }

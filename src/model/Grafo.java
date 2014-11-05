@@ -35,8 +35,8 @@ public class Grafo {
         return nomeVertice;
     }
     
-    public void addAresta(Vertice v1, Vertice v2){
-        Aresta a = new Aresta(v1, v2, null);
+    public void addAresta(Vertice v1, Vertice v2, int peso){
+        Aresta a = new Aresta(v1, v2, peso);
         if (!existeAresta(a)){
             v1.addAresta(a);
             v2.addAresta(a);
@@ -48,9 +48,9 @@ public class Grafo {
      * @param first
      * @param others 
      */
-    public void addArestas(Vertice first, List<Vertice> others){
+    public void addArestas(Vertice first, List<Vertice> others, int peso){
         for (Vertice outro : others){
-            addAresta(first, outro);
+            addAresta(first, outro, peso);
         }
     }
     
@@ -62,7 +62,8 @@ public class Grafo {
         List<Aresta> alist = new ArrayList<Aresta>();
         for (Vertice v : listaVertices){
             for (Aresta a : v.getArestas()){
-                alist.add(a);
+                if (!alist.contains(a))
+                    alist.add(a);
             }
         }
         return alist;
@@ -125,9 +126,31 @@ public class Grafo {
         return verticesSelecionados;
     }
 
-    private boolean existeAresta(Aresta a) {
+    
+    public Vertice getVertice(String nomeVertice){
+        for (Vertice v : listaVertices){
+            if (v.nome.equals(nomeVertice))
+                return v;
+        }
+        return null;
+    }
+    public boolean existeAresta(Aresta a) {
         List<Aresta> listaArestas = getArestas();
         return listaArestas.contains(a);
+    }
+    
+    /**
+     * Verifica se a aresta a pelo menos um dos vertices informados
+     * @param a
+     * @return 
+     */
+    public boolean existeArestaExterna(Aresta a, List<Vertice> vertices){
+        for ( Vertice v : vertices){
+            Vertice verticeLocal = getVertice(v.nome);
+            if (verticeLocal != null && verticeLocal.contemAresta(a))
+                return true;
+        }
+        return false;
     }
 
     public String removerVerticesSelecionados() {
@@ -138,6 +161,17 @@ public class Grafo {
             s.append(v.nome + ", ");
         }
         return s.toString();
+    }
+
+    void addVertice(Vertice v) {
+        listaVertices.add(v);
+//        String nomeVertice = v.nome;
+//        listaVertices.add(new Vertice(nomeVertice));
+    }
+
+    void addSeNaoExiste(Vertice v) {
+        if (getVertice(v.nome) == null);
+        addVertice(v);
     }
     
 }

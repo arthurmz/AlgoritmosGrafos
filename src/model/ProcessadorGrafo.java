@@ -22,7 +22,9 @@ public class ProcessadorGrafo {
     }
 
     public void processarArvoreGeradoraMinima() {
-        resultado = ArvoreGeradoraMinimaKruskal.processarGrafo(grafoOriginal);
+        ArvoreGeradoraMinimaKruskal gerador = new ArvoreGeradoraMinimaKruskal();
+        resultado = gerador.processarGrafo(grafoOriginal);
+        configuraPosicoes();
         processado = true;
     }
 
@@ -40,6 +42,23 @@ public class ProcessadorGrafo {
             for (Vertice v : resultado.getVertices()){
                 v.draw(g);
             }
+            processado = false;
         } 
+    }
+
+    private void configuraPosicoes() {
+        for (Vertice v : resultado.listaVertices){
+            Vertice original = grafoOriginal.getVertice(v.nome);
+            if (original != null)v.b = original.b;
+            
+            for (Aresta arestaInterna : v.getArestas()){
+                Vertice original1 = grafoOriginal.getVertice(arestaInterna.v1.nome);
+                if (original != null)arestaInterna.v1.b = original1.b;
+                
+                Vertice original2 = grafoOriginal.getVertice(arestaInterna.v2.nome);
+                if (original2 != null) arestaInterna.v2.b = original2.b;
+            }
+            
+        }
     }
 }
