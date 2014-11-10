@@ -31,7 +31,7 @@ public class ArvoreGeradoraMinimaKruskal {
         }
         
         List<Aresta> listaArestas  = grafoOriginal.getArestas();
-        Collections.sort(listaArestas);
+        Collections.sort(listaArestas);//ok até aqui
         
         /**Inicio */
         for (Aresta a : listaArestas){
@@ -45,21 +45,22 @@ public class ArvoreGeradoraMinimaKruskal {
     }
     
     /**
-     * Retorna as arvores conectadas pela aresta
+     * Verifica se a aresta conecta duas florestas diferentes, e caso positivo
+     * retorna as duas.
      * @param a
      * @param floresta
      * @return 
      */
     private List<Grafo> arvoresConectadasPelaAresta(Aresta a, List<Grafo>floresta){
         for (Grafo g1 : floresta){
-            if (grafoOriginal.existeArestaExterna(a, g1.getVertices())){
-                for (Grafo g2 : floresta){
-                    if (g2 != g1 && grafoOriginal.existeArestaExterna(a, g2.getVertices())){
-                        List<Grafo> arvores = new ArrayList<Grafo>();
+            if (g1.existeAresta(a)) continue;// se a aresta está dentro da floresta, então não olha mais pra ela
+            for (Grafo g2 : floresta){
+                if (g1 == g2) continue;
+                else if (g1.admiteAresta(a) && g2.admiteAresta(a)){
+                    List<Grafo> arvores = new ArrayList<Grafo>();
                         arvores.add(g1);
                         arvores.add(g2);
                         return arvores;
-                    }
                 }
             }
         }

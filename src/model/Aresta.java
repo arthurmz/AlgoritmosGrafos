@@ -26,7 +26,8 @@ public class Aresta implements Comparable<Aresta>{
     }
 
     Aresta() {
-        
+        v1 = new Vertice();
+        v2 = new Vertice();
     }
     
     public void draw(Graphics g) {
@@ -45,9 +46,9 @@ public class Aresta implements Comparable<Aresta>{
     @Override
     public boolean equals(Object obj){
         if (obj instanceof Aresta){
-            Aresta a = (Aresta)obj;
-            if (a.v1 == this.v1 && 
-                a.v2 == this.v2)
+            Aresta o = (Aresta)obj;
+            if (o.v1.nome == this.v1.nome && 
+                o.v2.nome == this.v2.nome)
                 return true;
         }
         return false;
@@ -58,6 +59,10 @@ public class Aresta implements Comparable<Aresta>{
     @Override
     public int compareTo(Aresta a) {
         return this.peso - a.peso;
+    }
+    
+    public String toString(){
+        return "[" + v1.nome + ";" + v2.nome + "]";
     }
     
 }

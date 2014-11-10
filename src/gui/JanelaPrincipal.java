@@ -245,6 +245,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         barraMenu.add(menuArquivo);
 
         menuAlgoritmos.setText("Algoritmos");
+        menuAlgoritmos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAlgoritmosActionPerformed(evt);
+            }
+        });
 
         itemMenuArvoreGeradoraMinima.setText("Arvore geradora mínima com Kruskal");
         itemMenuArvoreGeradoraMinima.addActionListener(new java.awt.event.ActionListener() {
@@ -342,6 +347,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         this.outputTextArea.append("Vertice(s) " + vertices + "Removido(s)\n");
         this.panelDesenharGrafo.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void menuAlgoritmosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlgoritmosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuAlgoritmosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

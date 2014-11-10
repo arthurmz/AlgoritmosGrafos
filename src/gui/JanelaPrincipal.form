@@ -23,6 +23,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Algoritmos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAlgoritmosActionPerformed"/>
+          </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemMenuArvoreGeradoraMinima">
               <Properties>

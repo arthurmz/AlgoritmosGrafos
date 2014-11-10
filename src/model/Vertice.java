@@ -23,6 +23,13 @@ public class Vertice {
     private boolean selecionado;
     private List<Aresta> arestas;
     
+    /**
+     * Cria um vértice não inicializado
+     */
+    public Vertice(){
+        
+    }
+    
     public Vertice(String nome, int x, int y, int w, int h){
         this.nome = nome;
         b = new Rectangle(x,y,w,h);
