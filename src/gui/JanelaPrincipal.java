@@ -41,7 +41,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void clear() {
         grafo = new Grafo();
-        processadorGrafo = new ProcessadorGrafo(grafo);
+        processadorGrafo = new ProcessadorGrafo(grafo, this);
     }
     
     private class MouseHandler extends MouseAdapter {
@@ -148,6 +148,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelDesenharGrafo.setBackground(new java.awt.Color(255, 255, 255));
+        panelDesenharGrafo.setPreferredSize(new java.awt.Dimension(0, 260));
 
         javax.swing.GroupLayout panelDesenharGrafoLayout = new javax.swing.GroupLayout(panelDesenharGrafo);
         panelDesenharGrafo.setLayout(panelDesenharGrafoLayout);
@@ -157,11 +158,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         );
         panelDesenharGrafoLayout.setVerticalGroup(
             panelDesenharGrafoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 183, Short.MAX_VALUE)
+            .addGap(0, 260, Short.MAX_VALUE)
         );
 
         panelOutputGrafo.setBackground(new java.awt.Color(255, 255, 255));
-        panelOutputGrafo.setPreferredSize(new java.awt.Dimension(0, 183));
+        panelOutputGrafo.setPreferredSize(new java.awt.Dimension(0, 260));
 
         javax.swing.GroupLayout panelOutputGrafoLayout = new javax.swing.GroupLayout(panelOutputGrafo);
         panelOutputGrafo.setLayout(panelOutputGrafoLayout);
@@ -171,7 +172,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         );
         panelOutputGrafoLayout.setVerticalGroup(
             panelOutputGrafoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 183, Short.MAX_VALUE)
+            .addGap(0, 260, Short.MAX_VALUE)
         );
 
         jToolBar1.setRollover(true);
@@ -280,7 +281,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(panelDesenharGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelDesenharGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
                             .addComponent(panelOutputGrafo, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -292,8 +293,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(panelDesenharGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelOutputGrafo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -312,7 +313,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String nomeVertice = grafo.addVertice();
         repaint();
-        outputTextArea.append("Vertice " + nomeVertice + " adicionado.\n");
+        println("Vertice " + nomeVertice + " adicionado.");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -333,18 +334,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         }
         s.append(" Conectados(s)\n");
-        this.outputTextArea.append(s.toString());
+        println(s.toString());
         this.panelDesenharGrafo.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         clear();
         this.panelDesenharGrafo.repaint();
+        this.panelOutputGrafo.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         String vertices = grafo.removerVerticesSelecionados();
-        this.outputTextArea.append("Vertice(s) " + vertices + "Removido(s)\n");
+        println("Vertice(s) " + vertices + "Removido(s)");
         this.panelDesenharGrafo.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -352,6 +354,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuAlgoritmosActionPerformed
 
+    public void println(String s){
+        if (this.outputTextArea != null){
+            this.outputTextArea.append(s+"\n");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;

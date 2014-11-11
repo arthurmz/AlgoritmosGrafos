@@ -5,6 +5,7 @@
  */
 package model;
 
+import gui.JanelaPrincipal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,10 +19,23 @@ import java.util.List;
  */
 public class ArvoreGeradoraMinimaKruskal {
     Grafo grafoOriginal;
+    JanelaPrincipal janela;
+
+    ArvoreGeradoraMinimaKruskal(JanelaPrincipal janela) {
+        this.janela = janela;
+    }
     
 
     public Grafo processarGrafo(Grafo grafoOriginal) {
         /** Setup */
+        janela.println("Processando a arvore geradora mínima usando kruskal");
+        if (grafoOriginal.isEmpty()){
+            System.out.println();
+            janela.println("Grafo vazio!");
+            return grafoOriginal;
+        }
+        
+        janela.println("Dividindo o grafo em " + grafoOriginal.getVertices().size() + " florestas");
         this.grafoOriginal = grafoOriginal;
         LinkedList<Grafo> floresta = new LinkedList<Grafo>();
         for (Vertice v : grafoOriginal.getVertices()){
@@ -31,16 +45,21 @@ public class ArvoreGeradoraMinimaKruskal {
         }
         
         List<Aresta> listaArestas  = grafoOriginal.getArestas();
-        Collections.sort(listaArestas);//ok até aqui
+        janela.println("Ordenando as arestas de forma crescente");
+        Collections.sort(listaArestas);
         
         /**Inicio */
         for (Aresta a : listaArestas){
             List<Grafo> arvores = arvoresConectadasPelaAresta(a, floresta);
             if (arvores != null){
+                janela.println("Aresta " + a.toString() + " conectando duas florestas diferentes, serão unidas");
                 floresta.removeAll(arvores);
                 floresta.add(unirArvores(a, arvores));
             }
+            if (floresta.size() == 1) break;
         }
+        janela.println("Fim da execução, árvore resultante:");
+        janela.println(floresta.getFirst().toString());
         return floresta.getFirst();//espera que só tenha um grafo
     }
     

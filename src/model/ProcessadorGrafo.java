@@ -5,6 +5,7 @@
  */
 package model;
 
+import gui.JanelaPrincipal;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 
@@ -16,13 +17,16 @@ public class ProcessadorGrafo {
     Grafo grafoOriginal;
     Grafo resultado;
     boolean processado = false;
+    JanelaPrincipal janela;
+    
 
-    public ProcessadorGrafo(Grafo grafo) {
+    public ProcessadorGrafo(Grafo grafo, JanelaPrincipal aThis) {
         this.grafoOriginal = grafo;
+        janela = aThis;
     }
 
     public void processarArvoreGeradoraMinima() {
-        ArvoreGeradoraMinimaKruskal gerador = new ArvoreGeradoraMinimaKruskal();
+        ArvoreGeradoraMinimaKruskal gerador = new ArvoreGeradoraMinimaKruskal(janela);
         resultado = gerador.processarGrafo(grafoOriginal);
         configuraPosicoes();
         processado = true;

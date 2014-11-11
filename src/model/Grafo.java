@@ -214,5 +214,22 @@ public class Grafo {
         return false;
         
     }
+
+    boolean isEmpty() {
+        if (getVertices().size() == 0)
+            return true;
+        return false;
+    }
+    
+    /**
+     * Imprime o grafo
+     */
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        for (Aresta a : getArestas()){
+            sb.append(a.toString() + " ");
+        }
+        return sb.toString();
+    }
     
 }
