@@ -22,6 +22,9 @@ public class Vertice {
     public Rectangle b;
     private boolean selecionado;
     private List<Aresta> arestas;
+    //Distancia deste vértice a algum outro vértice do grafo
+    //usado no algorimto de dijkstra
+    private int distancia;
     
     /**
      * Cria um vértice não inicializado
@@ -62,7 +65,14 @@ public class Vertice {
     public boolean isSelecionado(){
         return selecionado;
     }
+    
+    public int getDistancia(){
+        return distancia;
+    }
 
+    public void setDistancia(int d){
+        distancia = d;
+    }
     /**
      * Move na mesma direção do ponto
      * trata o ponto como um vetor com origem na posição atual

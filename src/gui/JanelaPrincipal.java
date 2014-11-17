@@ -264,6 +264,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         menuAlgoritmos.add(itemMenuPlanaridadeGrafo);
 
         itemMenuCaminhoMinimo.setText("Caminho mínimo");
+        itemMenuCaminhoMinimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuCaminhoMinimoActionPerformed(evt);
+            }
+        });
         menuAlgoritmos.add(itemMenuCaminhoMinimo);
 
         barraMenu.add(menuAlgoritmos);
@@ -353,6 +358,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void menuAlgoritmosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlgoritmosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuAlgoritmosActionPerformed
+
+    private void itemMenuCaminhoMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuCaminhoMinimoActionPerformed
+        processadorGrafo.processarCaminhoMinimo();
+        this.panelOutputGrafo.repaint();
+    }//GEN-LAST:event_itemMenuCaminhoMinimoActionPerformed
 
     public void println(String s){
         if (this.outputTextArea != null){

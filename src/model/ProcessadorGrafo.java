@@ -31,6 +31,13 @@ public class ProcessadorGrafo {
         configuraPosicoes();
         processado = true;
     }
+    
+    public void processarCaminhoMinimo(){
+        CaminhoMinimoDijkstra gerador = new CaminhoMinimoDijkstra(janela);
+        resultado = gerador.processarGrafo(grafoOriginal);
+        configuraPosicoes();
+        processado = true;
+    }
 
     /**
      * Desenha o grafo resultante do processamento no panel passado
