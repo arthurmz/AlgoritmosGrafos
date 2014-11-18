@@ -26,7 +26,7 @@ public class Vertice implements Comparable<Vertice>{
     //usado no algorimto de dijkstra
     private int distancia;
     private boolean visitado;
-    private Vertice anterior;
+    private Aresta anterior;// aresta que liga esse vértice ao vértice anterior
     
     /**
      * Cria um vértice não inicializado
@@ -45,6 +45,12 @@ public class Vertice implements Comparable<Vertice>{
         this.nome = nomeVertice;
         arestas = new ArrayList<Aresta>();
     }
+    
+    public Vertice(String nomeVertice, int distancia) {
+        this.nome = nomeVertice;
+        this.distancia = distancia;
+        arestas = new ArrayList<Aresta>();
+    }
 
     public void draw(Graphics g) {
         g.setColor(Color.white);
@@ -54,6 +60,13 @@ public class Vertice implements Comparable<Vertice>{
         g.drawString(nome, b.x+5, b.y+15);
         if (selecionado)
             g.drawRect(b.x, b.y, b.width, b.height);
+        if (distancia > 0){
+            g.setColor(Color.BLUE);
+            g.drawString(Integer.toString(distancia), b.x+20, b.y+30);
+            g.setColor(Color.BLACK);
+        }
+
+            
     }
     
     public boolean contem(Point p){
@@ -68,11 +81,11 @@ public class Vertice implements Comparable<Vertice>{
         return selecionado;
     }
     
-    public Vertice getAnterior(){
+    public Aresta getAnterior(){
         return anterior;
     }
     
-    public void setAnterior(Vertice ant){
+    public void setAnterior(Aresta ant){
         anterior = ant;
     }
     
@@ -141,5 +154,10 @@ public class Vertice implements Comparable<Vertice>{
     @Override
     public int compareTo(Vertice v) {
         return this.distancia - v.distancia;
+    }
+    
+    @Override
+    public String toString(){
+        return nome;
     }
 }

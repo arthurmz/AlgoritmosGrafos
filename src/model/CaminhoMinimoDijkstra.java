@@ -39,7 +39,7 @@ public class CaminhoMinimoDijkstra {
         }
         origem.setDistancia(0);
         
-        List<Vertice> listaVertices = grafoOriginal.getVertices();
+        List<Vertice> listaVertices = new ArrayList(grafoOriginal.getVertices());
         
         while (listaVertices.size() > 0){
             Collections.sort(listaVertices);
@@ -50,24 +50,38 @@ public class CaminhoMinimoDijkstra {
                 Grafo g = new Grafo();
                 
                 Vertice atual = u;
-                g.addVertice(atual);
+                
+                Vertice newAtual = new Vertice(atual.nome, atual.getDistancia());
+                g.addVertice(newAtual);
+                
                 while (atual.getAnterior() != null){
-                    g.addVertice(atual.getAnterior());
-                    atual = atual.getAnterior();
+                    Aresta anterior = atual.getAnterior();
+                    Vertice vAnterior = anterior.getOposto(atual);
+                    
+                    Vertice newAnterior = new Vertice(vAnterior.nome, vAnterior.getDistancia());
+                    
+                    g.addVertice(newAnterior);
+                    g.addAresta(newAtual, newAnterior, anterior.peso);
+                    
+                    atual = vAnterior;
+                    newAtual = new Vertice(atual.nome, atual.getDistancia());
+
                 }
                 return g;
             }
             
             for (Aresta a : u.getArestas()){
                 Vertice vizinho  = a.getOposto(u);
+                if (vizinho.isVisitado()) continue;
                 int dist = u.getDistancia() + a.peso;
                 
                 if (dist < vizinho.getDistancia()){
                     vizinho.setDistancia(dist);
-                    vizinho.setAnterior(u);
+                    vizinho.setAnterior(a);
                 }
             }
+            u.setVisitado(true);
         }
-        return new Grafo();
+        return grafoOriginal;
     }
 }
