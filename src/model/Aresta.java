@@ -54,6 +54,16 @@ public class Aresta implements Comparable<Aresta>{
         return false;
         
     }
+    
+    public Vertice getOposto(Vertice v){
+        if (v == null)
+            return null;
+        if (v.nome == v1.nome)
+            return v2;
+        if (v.nome == v2.nome)
+            return v1;
+        return null;
+    }
 
 
     @Override

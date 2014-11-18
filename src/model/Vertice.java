@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Arthur
  */
-public class Vertice {
+public class Vertice implements Comparable<Vertice>{
     
     public String nome;
     public Rectangle b;
@@ -26,6 +26,7 @@ public class Vertice {
     //usado no algorimto de dijkstra
     private int distancia;
     private boolean visitado;
+    private Vertice anterior;
     
     /**
      * Cria um vértice não inicializado
@@ -65,6 +66,14 @@ public class Vertice {
     
     public boolean isSelecionado(){
         return selecionado;
+    }
+    
+    public Vertice getAnterior(){
+        return anterior;
+    }
+    
+    public void setAnterior(Vertice ant){
+        anterior = ant;
     }
     
     public int getDistancia(){
@@ -127,5 +136,10 @@ public class Vertice {
             arestas.add(a);
         }
             
+    }
+    
+    @Override
+    public int compareTo(Vertice v) {
+        return this.distancia - v.distancia;
     }
 }
