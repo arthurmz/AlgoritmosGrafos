@@ -25,6 +25,7 @@ public class Vertice {
     //Distancia deste vértice a algum outro vértice do grafo
     //usado no algorimto de dijkstra
     private int distancia;
+    private boolean visitado;
     
     /**
      * Cria um vértice não inicializado
@@ -72,6 +73,14 @@ public class Vertice {
 
     public void setDistancia(int d){
         distancia = d;
+    }
+    
+    public void setVisitado(boolean visit){
+        visitado = visit;
+    }
+    
+    public boolean isVisitado(){
+        return visitado;
     }
     /**
      * Move na mesma direção do ponto

@@ -29,33 +29,15 @@ public class CaminhoMinimoDijkstra {
     }
     
 
-    public Grafo processarGrafo(Grafo grafoOriginal) {
-        /** Setup */
-        janela.println("Processando o caminho mínimo entre dois vértices");
-        if (grafoOriginal.isEmpty()){
-            System.out.println();
-            janela.println("Grafo vazio!");
-            return grafoOriginal;
-        }
-        
-        if (grafoOriginal.getVerticesSelecionados() == null
-                || grafoOriginal.getVerticesSelecionados().size() != 2){
-            janela.println("Selecione dois vértices do grafo!");
-            return grafoOriginal;
-        }
-        
-        Queue<Vertice> verticesSelecionados = grafoOriginal.getVerticesSelecionados();
-        
-        first = verticesSelecionados.poll();
-        end = verticesSelecionados.poll();
-        janela.println("Vertice de origem "+first.nome);
-        janela.println("Vertice de destino "+end.nome);
-            
-        
+    public Grafo processarGrafo(Grafo grafoOriginal, Vertice first, Vertice end) {
+        /** Setup */        
         janela.println("Configurando as distancias para todos os vértices");
         for (Vertice v: grafoOriginal.getVertices()){
             v.setDistancia(Integer.MAX_VALUE);
+            v.setVisitado(false);
         }
+        
+        
         
         return new Grafo();
     }

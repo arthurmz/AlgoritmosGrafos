@@ -7,6 +7,7 @@ package model;
 
 import gui.JanelaPrincipal;
 import java.awt.Graphics;
+import java.util.Queue;
 import javax.swing.JPanel;
 
 /**
@@ -33,10 +34,28 @@ public class ProcessadorGrafo {
     }
     
     public void processarCaminhoMinimo(){
-        CaminhoMinimoDijkstra gerador = new CaminhoMinimoDijkstra(janela);
-        resultado = gerador.processarGrafo(grafoOriginal);
-        configuraPosicoes();
-        processado = true;
+        janela.println("Processando o caminho mínimo entre dois vértices");
+        if (grafoOriginal.isEmpty()){
+            System.out.println();
+            janela.println("Grafo vazio!");
+        }
+        else if (grafoOriginal.getVerticesSelecionados() == null
+                || grafoOriginal.getVerticesSelecionados().size() != 2){
+            janela.println("Selecione dois vértices do grafo!");
+        }
+        else {
+            Queue<Vertice> verticesSelecionados = grafoOriginal.getVerticesSelecionados();
+        
+            Vertice first = verticesSelecionados.poll();
+            Vertice end = verticesSelecionados.poll();
+            janela.println("Vertice de origem "+first.nome);
+            janela.println("Vertice de destino "+end.nome);
+            
+            CaminhoMinimoDijkstra gerador = new CaminhoMinimoDijkstra(janela);
+            resultado = gerador.processarGrafo(grafoOriginal, first, end);
+            configuraPosicoes();
+            processado = true;
+        }
     }
 
     /**
